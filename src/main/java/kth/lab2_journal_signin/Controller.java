@@ -33,41 +33,18 @@ public class Controller {
                 });
     }
 
-
-
-
     @PostMapping("/register")
     public Mono<ResponseEntity<String>> register(@RequestBody RegistrationRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword()); // Password encoding recommended
+        user.setPassword(request.getPassword());
         user.setRole(String.valueOf(request.getRole() != null ? Role.valueOf(request.getRole().toUpperCase()) : Role.PATIENT));
 
         return userService.saveUser(user)
                 .flatMap(savedUser -> {
                     if ("Practitioner".equalsIgnoreCase(request.getUserType())) {
-                        /*
-                        Practitioner practitioner = new Practitioner();
-                        practitioner.setName(request.getName());
-                        practitioner.setDateOfBirth(request.getDateOfBirth());
-                        practitioner.setRole(Role.valueOf(request.getRole().toUpperCase()));
-                        practitioner.setUser(savedUser);
-                        return practitionerService.savePractitioner(practitioner)
-                                .thenReturn(new ResponseEntity<>("User registered successfully", HttpStatus.CREATED));
-
-                         */
                         return Mono.just(new ResponseEntity<>("Practitioner", HttpStatus.OK));
                     } else if ("Patient".equalsIgnoreCase(request.getUserType())) {
-                        /*
-                        Patient patient = new Patient();
-                        patient.setName(request.getName());
-                        patient.setDateOfBirth(request.getDateOfBirth());
-                        patient.setGender(request.getGender());
-                        patient.setUser(savedUser);
-                        return patientService.savePatient(patient)
-                                .thenReturn(new ResponseEntity<>("User registered successfully", HttpStatus.CREATED));
-
-                         */
                         return Mono.just(new ResponseEntity<>("Patient", HttpStatus.OK));
                     }
                     return Mono.just(new ResponseEntity<>("Invalid user type", HttpStatus.BAD_REQUEST));
