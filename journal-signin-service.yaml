@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: journal-signin
+spec:
+  selector:
+    app: journal-signin
+  ports:
+    - protocol: TCP
+      port: 8080         # Service port
+      targetPort: 8080   # Target port in the container
+      nodePort: 30080    # NodePort that will be accessible on your machine
+  type: NodePort
+  

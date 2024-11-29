@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal-signin
+  labels:
+    app: journal-signin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journal-signin
+  template:
+    metadata:
+      labels:
+        app: journal-signin
+    spec:
+      containers:
+        - name: journal-signin-app # Container name
+          image: journal-signin-app:latest # Docker image name
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 # Expose port 8081 from the container
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://journallab-db:3307/journaldb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "1234"
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+            - name: SPRING_JPA_SHOW_SQL
+              value: "true"
+          readinessProbe:
+            httpGet:
+              path: /                   # Default health check path for React app
+              port: 8080                # Port inside container
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /                   # Health check path for React app
+              port: 8080                # Port inside container
+            initialDelaySeconds: 15
+            periodSeconds: 20
