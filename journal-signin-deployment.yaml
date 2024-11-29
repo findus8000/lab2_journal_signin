@@ -31,15 +31,3 @@ spec:
               value: update
             - name: SPRING_JPA_SHOW_SQL
               value: "true"
-          readinessProbe:
-            httpGet:
-              path: /                   # Default health check path for React app
-              port: 8080                # Port inside container
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /                   # Health check path for React app
-              port: 8080                # Port inside container
-            initialDelaySeconds: 15
-            periodSeconds: 20
