@@ -21,13 +21,9 @@ spec:
           ports:
             - containerPort: 8080 # Expose port 8081 from the container
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://journallab-db:3307/journaldb
-            - name: SPRING_DATASOURCE_USERNAME
-              value: root
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: "1234"
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: update
-            - name: SPRING_JPA_SHOW_SQL
-              value: "true"
+           - name: SPRING_R2DBC_URL
+             value: r2dbc:mysql://journallab2-db:3306/journaldb
+           - name: SPRING_R2DBC_USERNAME
+             value: root
+           - name: SPRING_R2DBC_PASSWORD
+             value: "1234"
