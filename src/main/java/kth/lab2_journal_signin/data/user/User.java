@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("t_user") // Maps to the database table "T_User"
+@Table("t_user")
 public class User {
 
     @Id
