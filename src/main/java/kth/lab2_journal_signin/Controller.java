@@ -27,6 +27,13 @@ public class Controller {
         return ResponseEntity.ok("OK");
     }
 
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthzCheck() {
+        return ResponseEntity.ok("OK");
+    }
+
+
     @GetMapping("/login")
     public Mono<ResponseEntity<Role>> login(@RequestParam String email, @RequestParam String password) {
         return userService.findUserByEmail(email)
