@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api")
 public class Controller {
 
     private final UserService userService;
@@ -21,14 +21,7 @@ public class Controller {
         this.userService = userService;
     }
 
-
     @GetMapping("/healthz")
-    public ResponseEntity<String> healthCheck() {
-        return ResponseEntity.ok("OK");
-    }
-
-
-    @GetMapping("/health")
     public ResponseEntity<String> healthzCheck() {
         return ResponseEntity.ok("OK");
     }
